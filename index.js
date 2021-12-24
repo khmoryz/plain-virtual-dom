@@ -1,10 +1,14 @@
-const message = "this is virtual dom";
-render(message);
+const messageObj = {
+  tagName: "p",
+  children: "this is virtual dom",
+};
 
-function render(text) {
-  const textNode = document.createTextNode(text);
-  const pElement = document.createElement("p");
+render(messageObj);
+
+function render(obj) {
+  console.log(obj.tagName);
+  const pElement = document.createElement(obj.tagName);
+  const textNode = document.createTextNode(messageObj.children);
   pElement.appendChild(textNode);
   document.body.appendChild(pElement);
 }
-
