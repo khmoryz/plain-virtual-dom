@@ -1,12 +1,14 @@
 const messageObj = {
   tagName: "div",
+  attributes: { id: "div-id" },
   children: [
     {
       tagName: "p",
+      attributes: { id: "p-id" },
       children: [
         {
           tagName: "text",
-          attributes: "this is virtual dom",
+          attributes: { content: "this is virtual dom" },
         },
       ],
     },
@@ -21,13 +23,16 @@ function render(obj) {
 }
 
 function genRealDOM(obj) {
-  if (obj.tagName == "text") {
-    return document.createTextNode(obj.attributes);
-  }
-
   const parent = document.createElement(obj.tagName);
+  parent.setAttribute("id", obj.attributes.id);
+
   obj.children.forEach((child) => {
+    if (child.tagName == "text") {
+      parent.innerText = child.attributes.content;
+      return;
+    }
     parent.appendChild(genRealDOM(child));
   });
+
   return parent;
 }
