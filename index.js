@@ -1,14 +1,14 @@
 const firstObj = {
   tagName: "div",
-  attributes: { id: "div-id" },
+  attributes: { id: "div-id", content: "" },
   children: [
     {
       tagName: "p",
-      attributes: { id: "p-id" },
+      attributes: { id: "p-id", content: "" },
       children: [
         {
           tagName: "text",
-          attributes: { content: "this is virtual dom" },
+          attributes: { id: "text-id", content: "this is virtual dom" },
         },
       ],
     },
@@ -21,15 +21,15 @@ render(firstObj);
 
 const seccondObj = {
   tagName: "p",
-  attributes: { id: "div-id" },
+  attributes: { id: "div-id", content: "" },
   children: [
     {
       tagName: "p",
-      attributes: { id: "p-id" },
+      attributes: { id: "p-id", content: "" },
       children: [
         {
           tagName: "text",
-          attributes: { content: "this is virtual dom" },
+          attributes: { id: "text-id", content: "this is virtual dom" },
         },
       ],
     },
