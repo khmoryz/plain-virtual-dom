@@ -20,7 +20,7 @@ let currentObj;
 render(firstObj);
 
 const seccondObj = {
-  tagName: "p",
+  tagName: "div",
   attributes: { id: "div-id", content: "" },
   children: [
     {
@@ -29,35 +29,64 @@ const seccondObj = {
       children: [
         {
           tagName: "text",
-          attributes: { id: "text-id", content: "this is virtual dom" },
+          attributes: { id: "text-id", content: "changed!!!" },
         },
       ],
     },
   ],
 };
 
-const changes = diff(currentObj, seccondObj);
-patch(changes);
+setTimeout(() => {
+  const patchTagets = diff(currentObj, seccondObj);
+  if (typeof patchTagets !== "undefined") {
+    patchTagets.forEach((patchTaget) => {
+      patch(patchTaget);
+    });
+  }
+}, 3000);
 
 function diff(oldObj, newObj) {
-  if (oldObj.tagName != newObj.tagName) {
-    const id = oldObj.attributes.id;
-    const tagName = newObj.tagName;
-    return {
-      id: oldObj.attributes.id,
+  let patchArray = [];
+  diffNode(oldObj, newObj, patchArray);
+  return patchArray;
+}
+
+function diffNode(oldNode, newNode, patchArray) {
+  if (oldNode.tagName != newNode.tagName) {
+    patchArray.push({
+      id: oldNode.attributes.id,
       type: "tagName",
-      value: newObj.tagName,
-    };
+      value: newNode,
+    });
   }
+  if (oldNode.children && newNode.children) {
+    // contentの更新対象は親ノードのidとなるため、先読みする
+    for (let i = 0; i < oldNode.children.length; i++) {
+      if (oldNode.children[i].attributes.content != newNode.children[i].attributes.content) {
+        patchArray.push({
+          id: oldNode.attributes.id,
+          type: "content",
+          value: newNode.children[i].attributes.content,
+        });
+      }
+      diffNode(oldNode.children[i], newNode.children[i], patchArray);
+    }
+  }
+  return;
 }
 
 function patch(target) {
+  let targetElement;
+  let newElement;
   switch (target.type) {
     case "tagName":
-      const targetElement = window.document.getElementById(target.id);
-      const newElement = document.createElement(target.value);
-
+      targetElement = window.document.getElementById(target.id);
+      newElement = document.createElement(target.value);
       targetElement.replaceWith(newElement);
+      break;
+    case "content":
+      targetElement = window.document.getElementById(target.id);
+      targetElement.parentElement.innerText = target.value;
       break;
     default:
       console.error("invalid patch type");
