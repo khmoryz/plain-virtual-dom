@@ -1,0 +1,23 @@
+{
+  "name": "plain-virtual-dom",
+  "version": "0.0.1",
+  "description": "Very small implementation of Virtual DOM",
+  "main": "index.html",
+  "scripts": {
+    "serve": "./node_modules/.bin/serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khmory/plain-virtual-dom.git"
+  },
+  "author": "khmory",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/khmory/plain-virtual-dom/issues"
+  },
+  "homepage": "https://github.com/khmory/plain-virtual-dom#readme",
+  "dependencies": {
+    "serve": "^13.0.2"
+  }
+}
