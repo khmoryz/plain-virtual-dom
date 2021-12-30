@@ -1,5 +1,5 @@
 import diff from "./pvdom/diff.js";
-import render from "./pvdom/render.js";
+import renderNode from "./pvdom/renderNode.js";
 import patch from "./pvdom/patch.js";
 
 const firstObj = {
@@ -32,7 +32,8 @@ const firstObj = {
 // ブラウザ表示中のオブジェクト
 let currentObj;
 currentObj = firstObj;
-render(firstObj);
+const element = renderNode(firstObj);
+document.body.appendChild(element);
 
 const seccondObj = {
   tagName: "div",
