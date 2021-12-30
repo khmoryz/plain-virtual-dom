@@ -5,12 +5,12 @@ const vDOM = {
   attributes: { id: "div-id", content: "" },
   children: [
     {
-      tagName: "p",
+      tagName: "h3",
       attributes: { id: "p-id", content: "" },
       children: [
         {
           tagName: "text",
-          attributes: { id: "text-id", content: "this is virtual dom" },
+          attributes: { id: "text-id", content: "入力内容: " },
         },
       ],
     },
@@ -19,6 +19,7 @@ const vDOM = {
       attributes: {
         id: "input-id",
         type: "text",
+        size: 30,
         content: "",
       },
       children: [],
@@ -29,12 +30,13 @@ const vDOM = {
 PVDOM.render(vDOM);
 
 setInterval(() => {
-  vDOM.children[0].children[0].attributes.content = String(Math.random());
   PVDOM.render(vDOM);
-}, 1000);
+}, 30);
 
 const input = document.getElementById("input-id");
 input.oninput = handleInput;
 function handleInput(e) {
-  console.log(e.data);
+  if (e.data) {
+    vDOM.children[0].children[0].attributes.content += e.data;
+  }
 }
