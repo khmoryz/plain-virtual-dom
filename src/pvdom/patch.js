@@ -9,7 +9,7 @@ function patch(target) {
       break;
     case "content":
       targetElement = window.document.getElementById(target.id);
-      targetElement.parentElement.innerText = target.value;
+      targetElement.innerText = target.value;
       break;
     default:
       console.error("invalid patch type");
