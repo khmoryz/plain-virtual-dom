@@ -16,6 +16,16 @@ const firstObj = {
         },
       ],
     },
+    {
+      tagName: "input",
+      attributes: {
+        id: "input-id",
+        type: "text",
+        oninput: "inputChange()",
+        content: "",
+      },
+      children: [],
+    },
   ],
 };
 
@@ -37,6 +47,16 @@ const seccondObj = {
           attributes: { id: "text-id", content: "changed!!!" },
         },
       ],
+    },
+    {
+      tagName: "input",
+      attributes: {
+        id: "input-id",
+        type: "text",
+        oninput: "inputChange()",
+        content: "",
+      },
+      children: [],
     },
   ],
 };
