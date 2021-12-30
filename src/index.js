@@ -1,6 +1,4 @@
-import diff from "./pvdom/diff.js";
-import renderNode from "./pvdom/renderNode.js";
-import patch from "./pvdom/patch.js";
+import PVDOM from "./pvdom/pvdom.js";
 
 const vDOM = {
   tagName: "div",
@@ -28,21 +26,11 @@ const vDOM = {
   ],
 };
 
-// ブラウザ表示中のオブジェクト
-let currentVDOM;
-currentVDOM = JSON.parse(JSON.stringify(vDOM));
-const realElement = renderNode(vDOM);
-document.body.appendChild(realElement);
+PVDOM.render(vDOM);
 
 setInterval(() => {
   vDOM.children[0].children[0].attributes.content = String(Math.random());
-  const patchTagets = diff(currentVDOM, vDOM);
-  if (typeof patchTagets !== "undefined") {
-    patchTagets.forEach((patchTaget) => {
-      patch(patchTaget);
-    });
-  }
-  currentVDOM = JSON.parse(JSON.stringify(vDOM));
+  PVDOM.render(vDOM);
 }, 1000);
 
 const input = document.getElementById("input-id");
