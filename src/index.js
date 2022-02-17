@@ -29,9 +29,11 @@ const vDOM = {
 
 PVDOM.render(vDOM);
 
-setInterval(() => {
+const loop = function() {
   PVDOM.render(vDOM);
-}, 30);
+  requestAnimationFrame(loop);
+};
+loop();
 
 const input = document.getElementById("input-id");
 input.oninput = handleInput;
